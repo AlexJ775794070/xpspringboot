@@ -12,6 +12,7 @@ class XpspringbootApplicationTests {
     @Test
     void contextLoads() {
         lambdaService.testPredicate();
+        lambdaService.testConsumer();
     }
 
 }

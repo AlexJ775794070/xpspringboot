@@ -5,7 +5,15 @@ import java.io.Serializable;
 public class User implements Serializable {
     private String name;
     private int  age;
-    private boolean isMan;
+    private boolean sex;
+
+    public User() {}
+
+    public User(String name, int age, boolean sex) {
+        this.name = name;
+        this.age = age;
+        this.sex = sex;
+    }
 
     public String getName() {
         return name;
@@ -23,12 +31,12 @@ public class User implements Serializable {
         this.age = age;
     }
 
-    public boolean isMan() {
-        return isMan;
+    public boolean isSex() {
+        return sex;
     }
 
-    public void setMan(boolean man) {
-        isMan = man;
+    public void setSex(boolean sex) {
+        this.sex = sex;
     }
 
     @Override
@@ -36,7 +44,7 @@ public class User implements Serializable {
         return "User{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
-                ", isMan=" + isMan +
+                ", sex=" + sex +
                 '}';
     }
 }

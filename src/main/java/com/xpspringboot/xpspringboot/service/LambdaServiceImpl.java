@@ -1,8 +1,12 @@
 package com.xpspringboot.xpspringboot.service;
 
+import com.xpspringboot.xpspringboot.vo.User;
 import org.springframework.stereotype.Component;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
+
+import java.util.List;
+import java.util.function.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 函数接口是只有一个抽象方法的接口,用作lambda表达式的类型
@@ -42,13 +46,71 @@ public class LambdaServiceImpl implements LambdaService {
      }
     /**
      * 3.Function，将T映射为R(转换功能)
+     * @FunctionalInterface
+     * public interface Function<T, R> {
+     * 传入T类型，返回R类型
      * 里面一个apply()方法，接收一个T类型的，返回一个R类型的
      *  R apply(T t);
      */
     public void testFunction() {
-       // Function<User> functionTest =
+        //User::getName; 这个就是apply方法的实现
+        //functionTest就是Function对象的引用
+        User u = new User();
+        u.setName("XP");
+        u.setAge(18);
+        u.setSex(false);
+      Function<User,String> functionTest = User::getName;
+       String name = functionTest.apply(u);
+        System.out.println("name: " + name);
     }
 
+    /**
+     * 产生消息,返回一个T类型的
+     * @FunctionalInterface
+     * public interface Supplier<T>
+     *只有一个方法
+     * T get();
+     */
+    public void testSupplier() {
+        Supplier<String> supplier = () -> "Factory";
+        System.out.println("supplier: " + supplier.get());
 
+    }
 
+    /**
+     * 一元操作，逻辑非（！）
+     *
+     */
+    public void testUnaryOperator() {
+        UnaryOperator<Boolean> unaryOperator = x -> !x;
+        System.out.println(unaryOperator.apply(false));
+    }
+
+    /**
+     * 二元操作
+     * @FunctionalInterface
+     * public interface BinaryOperator<T> extends BiFunction<T,T,T>
+     * R apply(T t, U u);
+     *传入T,U返回R
+     * 所以加减乘除这些运算符合这个函数接口
+     */
+    public void testBinaryOperator() {
+        BinaryOperator<Integer> binaryOperator = (x,y) -> x+y;
+        System.out.println(binaryOperator.apply(2,8));
+    }
+
+    /**
+     * 惰性求值与及早求值
+     * 惰性求值就是得到的结果还是Stream流
+     * 及早求值就是得到最终结果而不是一个stream流
+     * stream流在集合中有着广泛的应用
+     */
+    public void testStream() {
+        List<User> studentList = Stream.of(new User("路飞", 22, true),
+                new User("红发", 40, true),
+                new User("白胡子", 50, true)).collect(Collectors.toList());
+        System.out.println(studentList);
+
+        //studentList.stream()
+    }
 }

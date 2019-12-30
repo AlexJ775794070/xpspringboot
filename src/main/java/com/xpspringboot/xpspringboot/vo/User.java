@@ -7,6 +7,8 @@ public class User implements Serializable {
     private int  age;
     private boolean sex;
 
+    
+   //user pojo 
     public User() {}
 
     public User(String name, int age, boolean sex) {
